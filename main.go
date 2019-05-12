@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-api/domain"
+	"go-api/router"
 )
 
 func main() {
-	domain.GetUser()
+	router.RoutesUsers()
 }
