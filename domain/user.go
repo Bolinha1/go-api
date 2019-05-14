@@ -7,4 +7,4 @@ type User struct {
 	Email string `json:"email,omitempty"`
 }
 
-var UserModel []User
+var userModel User

@@ -23,6 +23,8 @@ func GetUser() []User {
 		panic(err.Error())
 	}
 
+	userList := []User{}
+
 	for results.Next() {
 
 		var users User
@@ -32,8 +34,36 @@ func GetUser() []User {
 			panic(err.Error())
 		}
 
-		UserModel = append(UserModel, User{ID: users.ID, Name: users.Name, Email: users.Email})
+		userList = append(userList, User{ID: users.ID, Name: users.Name, Email: users.Email})
 	}
-	return UserModel
+	return userList
 
+}
+
+func GetUserID(id string) User {
+	dsn := db.GetDsn()
+	db, err := sql.Open("mysql", dsn)
+
+	if err != nil {
+		log.Print(err.Error())
+	}
+	defer db.Close()
+
+	results, err := db.Prepare("SELECT id, name, email FROM user WHERE id = (?)")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var users User
+
+	err = results.QueryRow(id).Scan(&users.ID, &users.Name, &users.Email)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	results.Close()
+
+	userModel = User{ID: users.ID, Name: users.Name, Email: users.Email}
+	return userModel
 }
