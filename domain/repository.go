@@ -67,3 +67,17 @@ func GetUserID(id string) User {
 	userModel = User{ID: users.ID, Name: users.Name, Email: users.Email}
 	return userModel
 }
+
+func CreateUser(name string, email string) {
+
+	dsn := db.GetDsn()
+	db, err := sql.Open("mysql", dsn)
+
+	insert, err := db.Query("INSERT INTO user (name, email) VALUES ( '" + name + "', '" + email + "' )")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer insert.Close()
+}

@@ -16,3 +16,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	json.NewEncoder(w).Encode(domain.GetUserID(params["id"]))
 }
+
+func CreateUser(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("name")
+	email := r.FormValue("email")
+	domain.CreateUser(name, email)
+	json.NewEncoder(w).Encode("User Created")
+}
