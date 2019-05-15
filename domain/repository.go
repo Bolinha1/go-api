@@ -81,3 +81,16 @@ func CreateUser(name string, email string) {
 
 	defer insert.Close()
 }
+
+func UpdateUser(id string, name string, email string) {
+
+	dsn := db.GetDsn()
+	db, err := sql.Open("mysql", dsn)
+
+	update, err := db.Prepare("UPDATE user SET name = '" + name + "', email = '" + email + "' WHERE id = " + id)
+	if err != nil {
+		panic(err.Error())
+	}
+	update.Exec()
+	defer update.Close()
+}

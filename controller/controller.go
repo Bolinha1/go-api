@@ -23,3 +23,11 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	domain.CreateUser(name, email)
 	json.NewEncoder(w).Encode("User Created")
 }
+
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	id := r.FormValue("id")
+	name := r.FormValue("name")
+	email := r.FormValue("email")
+	domain.UpdateUser(id, name, email)
+	json.NewEncoder(w).Encode("User Updated")
+}
