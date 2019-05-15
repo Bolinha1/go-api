@@ -94,3 +94,16 @@ func UpdateUser(id string, name string, email string) {
 	update.Exec()
 	defer update.Close()
 }
+
+func DeleteUser(id string) {
+
+	dsn := db.GetDsn()
+	db, err := sql.Open("mysql", dsn)
+
+	delete, err := db.Prepare("DELETE FROM user WHERE id = " + id)
+	if err != nil {
+		panic(err.Error())
+	}
+	delete.Exec()
+	defer delete.Close()
+}

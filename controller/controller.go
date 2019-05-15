@@ -31,3 +31,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	domain.UpdateUser(id, name, email)
 	json.NewEncoder(w).Encode("User Updated")
 }
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	param := mux.Vars(r)
+	domain.DeleteUser(param["id"])
+	json.NewEncoder(w).Encode("User Deleted")
+}
